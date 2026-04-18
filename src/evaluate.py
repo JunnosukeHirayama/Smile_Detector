@@ -12,10 +12,8 @@ except ImportError:
         print("【警告】smile_predict関数が見つかりません。先にモデル学習のコードを実行してください。")
 
 def main():
-    # データのロード
     data_path = Path('data') / 'facial_keypoints.json'
-    
-    # ファイルが存在しない場合のエラーハンドリングを追加
+
     if not data_path.exists():
         print(f"【エラー】データファイルが見つかりません: {data_path}")
         return
@@ -25,7 +23,6 @@ def main():
 
     test_data = data['test']
 
-    # 評価指標の初期化
     correct_count = 0
     total_count = len(test_data)
 
@@ -34,10 +31,8 @@ def main():
         face_input = sample[:-1]      # 特徴量（座標データ）
         gt_bool = sample[-1]['smile'] # 正解ラベル (Ground Truth)
 
-        # モデルによる予測
         pred_bool = smile_predict(face_input)
 
-        # 正誤判定
         if pred_bool == gt_bool:
             correct_count += 1
 
