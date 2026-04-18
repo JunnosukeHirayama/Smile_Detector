@@ -4,7 +4,8 @@
 
 ## Demo / Visuals
 
-![データの可視化と笑顔判定](Images/025429.png)
+<img src="Images/025429.png" width="500">
+<img src="Images/132836.png" width="700">
 
 ## Overview
 
@@ -46,14 +47,35 @@ NumPyを活用し、全サンプルの顔の向き・大きさ・位置を数学
 テストデータを用いた推論検証において、**94.0% (Correct: 265 / Total: 282)** の正答率を達成しました。
 幾何学的正規化を導入する前のルールベース手法と比較して、大幅な精度向上が確認されました。
 
-## Installation & Usage
+## Installation & Usage (実行方法)
 
-本プログラムは外部ライブラリへの依存を最小限に抑えた単一ファイルで動作します。
+本プロジェクトは、可視化・学習/推論・精度評価の機能ごとにスクリプトを分割し、実務的なモジュール構成で実装しています。
 
-### 実行手順
-1. 本リポジトリのコードをお手元の環境に保存し、同階層に `data/facial_keypoints.json` を配置してください。
-2. 必要なライブラリをインストールします。
-   ```bash
-   pip install numpy scikit-learn matplotlib
+### 1. 環境構築
+本リポジトリのコードをお手元の環境に保存し、ターミナルでプロジェクトのルートディレクトリ（`smile-detector` の直下）を開きます。
+※ `data/` ディレクトリ内に `facial_keypoints.json` が配置されていることを確認してください。
 
-3,プログラムを実行すると、初回呼び出し時に自動でオンメモリ学習が走り、推論関数の利用が可能になります。
+必要なライブラリをインストールします。
+```bash
+pip install numpy scikit-learn matplotlib
+```
+### 2. データの可視化 (EDA)
+提供された座標データをグラフ化し、笑顔/非笑顔のKeypointsの違いや空間ノイズの状態を視覚的に確認します。
+```bash
+python src/eda_visualize.py
+```
+### 3. モデルの精度評価 (Evaluation)
+テストデータを用いてオンメモリでのモデル学習および推論を実行し、予測結果と正解データを突き合わせて正答率（Accuracy）を算出します。
+```bash
+python src/evaluate.py
+```
+### 4. 推論モジュールとしての利用
+smile_predict.py は、外部のスクリプトからインポートして推論モジュールとして単独利用することが可能です。初回インポート時に自動で学習が走り、推論準備が完了します。
+```bash
+# ※ srcディレクトリにパスが通っている環境での実行例
+from src.smile_predict import smile_predict
+
+sample_face_data = [...] # 15個の座標リストを入力
+is_smiling = smile_predict(sample_face_data)
+print(f"Smile Predicted: {is_smiling}")
+```
