@@ -18,9 +18,9 @@
 
 ## Tech Stack
 
-* **Language:** Python 3.10+
+* **Language:** Python
 * **Machine Learning:** scikit-learn (LogisticRegression)
-* **Data Processing & Math:** NumPy (行列演算・アフィン変換)
+* **Data Processing & Math:** NumPy
 * **Visualization:** Matplotlib
 
 ## Key Features & Technical Highlights
