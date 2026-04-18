@@ -2,27 +2,27 @@
 
 > 15個の顔のKeypoints座標データから、幾何学的な空間正規化と特徴量エンジニアリングを用いて笑顔判定を行う機械学習パイプライン
 
-## 👁️ Demo / Visuals
+## Demo / Visuals
 
-![データの可視化と笑顔判定](image/smile_eda.png)
+![データの可視化と笑顔判定](Images/025429.png)
 
-## 💡 Overview
+## Overview
 
 顔のランドマーク（15個のKeypoints座標）データのみを入力とし、対象者が笑顔であるか否かを判定する推論関数 `smile_predict` の実装です。高精度で高速な推論を実現するため、座標データに対する幾何学的な正規化処理と、ロジスティック回帰を用いたモデルを組み合わせたパイプラインを構築しました [cite: 6]。
 
-## 🎯 Motivation & Challenges
+## Motivation & Challenges
 
 開発初期において、入力される各サンプルの座標群は、被写体とカメラの距離(スケール)、顔の位置(平行移動)、首の傾き(回転)といった空間的なノイズを含んでいました。
 抽出した少数の特徴量に対する手動のルールベース判定を初期アプローチとして実装しましたが、約76%の正答率にとどまり、顔の傾きなどのノイズ対応に限界があることがわかりました。この課題を解決するため、数学的なアプローチによる「空間ノイズの完全な排除」と、機械学習モデルを組み合わせた堅牢なロジックを設計しました。
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Language:** Python 3.10+
 * **Machine Learning:** scikit-learn (LogisticRegression)
 * **Data Processing & Math:** NumPy (行列演算・アフィン変換)
 * **Visualization:** Matplotlib
 
-## 🔥 Key Features & Technical Highlights
+## Key Features & Technical Highlights
 
 ### 1. 行列演算を用いた幾何学的正規化 (Geometric Normalization)
 NumPyを活用し、全サンプルの顔の向き・大きさ・位置を数学的に統一する正規化プロセスをスクラッチで実装しました。
@@ -41,12 +41,12 @@ NumPyを活用し、全サンプルの顔の向き・大きさ・位置を数学
 * 今回の限られた特徴量空間において過学習を起こしにくく、かつパラメータの解釈性が高い点を評価し採用しました。
 * 初回の推論実行時にオンメモリでモデルを学習・構築するアーキテクチャを採用しています。
 
-## 📈 Results
+## Results
 
 テストデータを用いた推論検証において、**94.0% (Correct: 265 / Total: 282)** の正答率を達成しました。
 幾何学的正規化を導入する前のルールベース手法と比較して、大幅な精度向上が確認されました。
 
-## 🚀 Installation & Usage
+## Installation & Usage
 
 本プログラムは外部ライブラリへの依存を最小限に抑えた単一ファイルで動作します。
 
@@ -55,3 +55,5 @@ NumPyを活用し、全サンプルの顔の向き・大きさ・位置を数学
 2. 必要なライブラリをインストールします。
    ```bash
    pip install numpy scikit-learn matplotlib
+
+3,プログラムを実行すると、初回呼び出し時に自動でオンメモリ学習が走り、推論関数の利用が可能になります。
