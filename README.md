@@ -71,13 +71,3 @@ python src/eda_visualize.py
 ```bash
 python src/evaluate.py
 ```
-### 4. 推論モジュールとしての利用
-smile_predict.py は、外部のスクリプトからインポートして推論モジュールとして単独利用することが可能です。初回インポート時に自動で学習が走り、推論準備が完了します。
-```bash
-# ※ srcディレクトリにパスが通っている環境での実行例
-from src.smile_predict import smile_predict
-
-sample_face_data = [...] # 15個の座標リストを入力
-is_smiling = smile_predict(sample_face_data)
-print(f"Smile Predicted: {is_smiling}")
-```
